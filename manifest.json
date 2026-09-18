@@ -1,0 +1,21 @@
+{
+  "name": "Lokah Smart PDF Conversion Studio",
+  "short_name": "PDF Studio",
+  "description": "Convert, edit, analyze, and optimize PDF and Word documents in browser",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#090d16",
+  "theme_color": "#4f46e5",
+  "icons": [
+    {
+      "src": "/assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
