@@ -1,12 +1,13 @@
 # PDF2JPEG – High-Definition PDF to JPEG Converter
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fkarthikeyan0929%2Flokah)
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-black?style=flat&logo=vercel)](https://lokah.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-black?style=flat&logo=vercel)](https://lokah-nu.vercel.app)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 **PDF2JPEG (Lokah)** is a modern, production-ready SaaS web application that converts PDF documents into high-resolution JPEG images directly inside the browser. Fast, 100% private, and zero server upload required.
 
-🌐 **Live Demo**: [https://lokah.vercel.app](https://lokah.vercel.app)
+🌐 **Live Demo**: [https://lokah-nu.vercel.app](https://lokah-nu.vercel.app)
+
 
 ---
 
