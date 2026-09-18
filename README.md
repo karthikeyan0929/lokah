@@ -1,6 +1,12 @@
 # Lokah - AI PDF to JPEG Converter & Document Assistant 🚀
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fkarthikeyan0929%2Flokah)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-black?style=flat&logo=vercel)](https://lokah.vercel.app)
+
 **Lokah** is an AI-powered PDF-to-JPEG converter and document intelligence bot. Convert PDF files into ultra crisp, high-resolution JPEG images directly inside your browser with zero latency and 100% privacy.
+
+🌐 **Live Application Link**: [https://lokah.vercel.app](https://lokah.vercel.app)
+
 
 ## ✨ Features
 
