@@ -1,9 +1,11 @@
-import { validatePdfFile, formatFileSize, MAX_FILES_BATCH } from './lib/fileUtils.js';
+import { validateDocumentFile, formatFileSize, MAX_FILES_BATCH } from './lib/fileUtils.js';
 import { convertPdfToJpegs, loadPdfMetadata } from './lib/pdfConverter.js';
 import { downloadSingleJpeg, downloadImagesZip } from './lib/zipUtils.js';
+import { convertPdfToDocx } from './lib/wordConverter.js';
 
 // Application State
 const state = {
+  mode: 'pdf-to-jpeg', // 'pdf-to-jpeg' | 'pdf-to-docx'
   queue: [], // Array of { id, file, pdfDoc, pageCount, status: 'ready'|'converting'|'completed'|'failed', error: null }
   settings: {
     resolution: 'high',
@@ -11,11 +13,14 @@ const state = {
     customQuality: 0.92,
     pageRange: ''
   },
-  convertedImages: [], // Array of { id, pageNum, filename, dataUrl, blob, width, height, sizeBytes, sourceFileName }
+  convertedImages: [],
+  generatedDocx: null, // { blob, fileName }
   isConverting: false
 };
 
 // DOM References
+const tabPdfToJpeg = document.getElementById('tabPdfToJpeg');
+const tabPdfToDocx = document.getElementById('tabPdfToDocx');
 const dropzone = document.getElementById('uploadDropzone');
 const fileInput = document.getElementById('pdfFileInput');
 const errorAlert = document.getElementById('errorAlert');
@@ -26,6 +31,8 @@ const fileCountBadge = document.getElementById('fileCountBadge');
 const clearAllFilesBtn = document.getElementById('clearAllFilesBtn');
 
 const settingsBox = document.getElementById('settingsBox');
+const jpegSettingsGrid = document.getElementById('jpegSettingsGrid');
+const wordSettingsNote = document.getElementById('wordSettingsNote');
 const resolutionSelect = document.getElementById('resolutionSelect');
 const qualitySlider = document.getElementById('qualitySlider');
 const qualityValDisplay = document.getElementById('qualityValDisplay');
@@ -33,6 +40,7 @@ const pageRangeFilter = document.getElementById('pageRangeFilter');
 
 const actionRow = document.getElementById('actionRow');
 const convertBtn = document.getElementById('convertBtn');
+const convertBtnLabel = document.getElementById('convertBtnLabel');
 
 const progressSection = document.getElementById('progressSection');
 const progressStepTitle = document.getElementById('progressStepTitle');
@@ -41,11 +49,18 @@ const progressBar = document.getElementById('progressBar');
 const progressDetailText = document.getElementById('progressDetailText');
 const progressPageCount = document.getElementById('progressPageCount');
 
+// Results Dashboards
 const resultsDashboard = document.getElementById('resultsDashboard');
 const totalJpegsCount = document.getElementById('totalJpegsCount');
 const imagesGrid = document.getElementById('imagesGrid');
 const downloadAllZipBtn = document.getElementById('downloadAllZipBtn');
+const exportToDocxBtn = document.getElementById('exportToDocxBtn');
 const startOverBtn = document.getElementById('startOverBtn');
+
+const wordResultsCard = document.getElementById('wordResultsCard');
+const docxFileNameDisplay = document.getElementById('docxFileNameDisplay');
+const downloadWordBtn = document.getElementById('downloadWordBtn');
+const wordStartOverBtn = document.getElementById('wordStartOverBtn');
 
 // Modal Elements
 const previewModal = document.getElementById('previewModal');
@@ -57,17 +72,44 @@ let currentModalItem = null;
 
 // Theme Toggle
 const themeToggleBtn = document.getElementById('themeToggleBtn');
-const themeIcon = document.getElementById('themeIcon');
 
 /**
- * Initialize Event Handlers
+ * Initialize App
  */
 function initApp() {
+  setupModeTabs();
   setupDragAndDrop();
   setupSettingsListeners();
   setupActionListeners();
   setupFaqAccordion();
   setupThemeToggle();
+}
+
+/**
+ * Setup Conversion Mode Switcher Tabs
+ */
+function setupModeTabs() {
+  tabPdfToJpeg.addEventListener('click', () => setMode('pdf-to-jpeg'));
+  tabPdfToDocx.addEventListener('click', () => setMode('pdf-to-docx'));
+}
+
+function setMode(newMode) {
+  state.mode = newMode;
+  tabPdfToJpeg.classList.toggle('active', newMode === 'pdf-to-jpeg');
+  tabPdfToDocx.classList.toggle('active', newMode === 'pdf-to-docx');
+
+  if (newMode === 'pdf-to-docx') {
+    jpegSettingsGrid.style.display = 'none';
+    wordSettingsNote.style.display = 'block';
+    convertBtnLabel.textContent = 'Convert to Word (.docx)';
+  } else {
+    jpegSettingsGrid.style.display = 'grid';
+    wordSettingsNote.style.display = 'none';
+    convertBtnLabel.textContent = 'Convert to JPEG';
+  }
+
+  // Clear errors when switching modes
+  hideError();
 }
 
 /**
@@ -131,7 +173,7 @@ async function handleFilesAdded(fileList) {
   }
 
   for (const file of fileList) {
-    const validation = validatePdfFile(file);
+    const validation = validateDocumentFile(file, state.mode);
     if (!validation.valid) {
       showError(validation.error);
       continue;
@@ -243,7 +285,17 @@ function setupSettingsListeners() {
 function setupActionListeners() {
   convertBtn.addEventListener('click', handleConversion);
   downloadAllZipBtn.addEventListener('click', handleDownloadAllZip);
+  exportToDocxBtn.addEventListener('click', handleExportCurrentToDocx);
   startOverBtn.addEventListener('click', resetState);
+  wordStartOverBtn.addEventListener('click', resetState);
+
+  downloadWordBtn.addEventListener('click', () => {
+    if (state.generatedDocx) {
+      import('file-saver').then(({ saveAs }) => {
+        saveAs(state.generatedDocx.blob, state.generatedDocx.fileName);
+      });
+    }
+  });
 
   // Modal Events
   closeModalBtn.addEventListener('click', closeModal);
@@ -265,7 +317,7 @@ function setupActionListeners() {
 }
 
 /**
- * Trigger Conversion Process
+ * Main Conversion Handler
  */
 async function handleConversion() {
   if (state.isConverting || state.queue.length === 0) return;
@@ -278,11 +330,13 @@ async function handleConversion() {
 
   state.isConverting = true;
   state.convertedImages = [];
+  state.generatedDocx = null;
   hideError();
 
   convertBtn.disabled = true;
   progressSection.style.display = 'block';
   resultsDashboard.style.display = 'none';
+  wordResultsCard.style.display = 'none';
 
   let totalRendered = 0;
 
@@ -303,22 +357,36 @@ async function handleConversion() {
       item.status = 'completed';
       totalRendered += images.length;
       renderQueueList();
+
+      // If in Word mode, compile docx
+      if (state.mode === 'pdf-to-docx') {
+        progressDetailText.textContent = 'Formatting and compiling Word (.docx) document...';
+        const docxResult = await convertPdfToDocx({
+          fileName: item.file.name,
+          pages: images
+        });
+        state.generatedDocx = docxResult;
+      }
     }
 
     // Finished
     progressBar.style.width = '100%';
     progressPercentNumber.textContent = '100%';
     progressStepTitle.textContent = 'Conversion Successful!';
-    progressDetailText.textContent = `Finished converting ${totalRendered} pages.`;
+    progressDetailText.textContent = `Finished processing ${totalRendered} pages.`;
 
     setTimeout(() => {
       progressSection.style.display = 'none';
-      displayResults();
+      if (state.mode === 'pdf-to-docx') {
+        displayWordResults();
+      } else {
+        displayResults();
+      }
     }, 600);
 
   } catch (err) {
     console.error('Conversion failed:', err);
-    showError('An error occurred during page rendering. Please ensure your PDF is valid.');
+    showError('An error occurred during conversion. Please ensure your PDF is valid.');
   } finally {
     state.isConverting = false;
     convertBtn.disabled = false;
@@ -330,6 +398,7 @@ async function handleConversion() {
  */
 function displayResults() {
   resultsDashboard.style.display = 'block';
+  wordResultsCard.style.display = 'none';
   totalJpegsCount.textContent = state.convertedImages.length;
   imagesGrid.innerHTML = '';
 
@@ -384,8 +453,41 @@ function displayResults() {
     imagesGrid.appendChild(card);
   });
 
-  // Scroll smoothly to results
   resultsDashboard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/**
+ * Display Word (.docx) results
+ */
+function displayWordResults() {
+  resultsDashboard.style.display = 'none';
+  wordResultsCard.style.display = 'block';
+  if (state.generatedDocx) {
+    docxFileNameDisplay.textContent = state.generatedDocx.fileName;
+  }
+  wordResultsCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+/**
+ * Export currently converted pages to Word
+ */
+async function handleExportCurrentToDocx() {
+  if (state.convertedImages.length === 0) return;
+  const originalHtml = exportToDocxBtn.innerHTML;
+  exportToDocxBtn.innerHTML = `<span>Exporting...</span>`;
+
+  try {
+    const activeFile = state.queue[0]?.file?.name || 'document.pdf';
+    await convertPdfToDocx({
+      fileName: activeFile,
+      pages: state.convertedImages
+    });
+  } catch (err) {
+    console.error('Word export error:', err);
+    showError('Failed to compile Word document.');
+  } finally {
+    exportToDocxBtn.innerHTML = originalHtml;
+  }
 }
 
 /**
@@ -432,10 +534,12 @@ function closeModal() {
 function resetState() {
   state.queue = [];
   state.convertedImages = [];
+  state.generatedDocx = null;
   fileInput.value = '';
   hideError();
   updateWorkflowVisibility();
   resultsDashboard.style.display = 'none';
+  wordResultsCard.style.display = 'none';
   progressSection.style.display = 'none';
 }
 

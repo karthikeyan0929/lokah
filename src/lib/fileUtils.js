@@ -1,8 +1,8 @@
 /**
- * File utility functions
+ * File utility functions with PDF & Word (.docx) support
  */
 
-export const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100 MB per PDF
+export const MAX_FILE_SIZE = 100 * 1024 * 1024; // 100 MB
 export const MAX_FILES_BATCH = 10;
 
 export function formatFileSize(bytes) {
@@ -17,14 +17,24 @@ export function sanitizeFileName(name) {
   return name.replace(/[^a-zA-Z0-9-_\.]/g, '_').replace(/\.[^/.]+$/, '');
 }
 
-export function validatePdfFile(file) {
+export function validateDocumentFile(file, mode = 'pdf-to-jpeg') {
   if (!file) {
     return { valid: false, error: 'No file provided.' };
   }
 
-  const isPdfType = file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf');
-  if (!isPdfType) {
-    return { valid: false, error: `"${file.name}" is not a valid PDF file. Please upload a .pdf document.` };
+  const nameLower = file.name.toLowerCase();
+  const isPdf = file.type === 'application/pdf' || nameLower.endsWith('.pdf');
+  const isDocx = file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || nameLower.endsWith('.docx') || nameLower.endsWith('.doc');
+
+  if (mode === 'word-to-html') {
+    if (!isDocx) {
+      return { valid: false, error: `"${file.name}" is not a valid Word document (.docx).` };
+    }
+  } else {
+    // PDF mode
+    if (!isPdf) {
+      return { valid: false, error: `"${file.name}" is not a valid PDF file. Please upload a .pdf document.` };
+    }
   }
 
   if (file.size === 0) {
@@ -38,7 +48,7 @@ export function validatePdfFile(file) {
     };
   }
 
-  return { valid: true };
+  return { valid: true, isPdf, isDocx };
 }
 
 export function parsePageRange(rangeStr, maxPages) {

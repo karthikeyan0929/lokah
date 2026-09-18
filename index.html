@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PDF to JPEG Converter – Convert PDF Pages to JPG Online</title>
-  <meta name="description" content="Convert PDF pages into high-quality JPEG images quickly, securely, and effortlessly. 100% private in-browser conversion with multi-page batch download." />
+  <title>Lokah Converter – Convert PDF to JPEG & Word (DOCX) Online</title>
+  <meta name="description" content="Convert PDF documents into high-quality JPEG images or editable Word (.docx) documents. 100% private in-browser conversion." />
   
   <!-- Favicon & Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -18,7 +18,7 @@
   <!-- Site Navigation Header -->
   <header class="site-header">
     <div class="container nav-container">
-      <a href="#" class="brand-logo" aria-label="PDF2JPEG Home">
+      <a href="#" class="brand-logo" aria-label="Lokah Converter Home">
         <div class="brand-icon-box">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
@@ -28,8 +28,8 @@
             <polyline points="10 9 9 9 8 9"></polyline>
           </svg>
         </div>
-        <span>PDF2JPEG</span>
-        <span class="brand-badge">SaaS</span>
+        <span>Lokah</span>
+        <span class="brand-badge">PDF & Word</span>
       </a>
 
       <nav class="main-nav" aria-label="Main Navigation">
@@ -63,21 +63,43 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
+  <!-- Hero Section with Conversion Mode Switcher -->
   <section class="hero-section" id="converter">
     <div class="container">
       <div class="hero-pill">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <polyline points="20 6 9 17 4 12"></polyline>
         </svg>
-        <span>High-Definition Canvas Rendering</span>
+        <span>High-Definition Canvas & Word Engine</span>
       </div>
       <h1 class="hero-title">
-        Convert <span class="gradient-text">PDF to JPEG</span> in Seconds
+        Convert <span class="gradient-text">PDF to JPEG & Word</span> Instantly
       </h1>
       <p class="hero-subtitle">
-        Transform every PDF page into crisp, high-quality JPEG images directly in your browser. Fast, private, and effortless.
+        Transform PDF documents into high-resolution JPEG images or editable Word (.docx) files directly in your browser.
       </p>
+
+      <!-- Mode Selector Tabs -->
+      <div class="mode-tabs-container">
+        <button class="mode-tab active" id="tabPdfToJpeg" data-mode="pdf-to-jpeg">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+            <polyline points="21 15 16 10 5 21"></polyline>
+          </svg>
+          <span>PDF to JPEG</span>
+        </button>
+        <button class="mode-tab" id="tabPdfToDocx" data-mode="pdf-to-docx">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <line x1="10" y1="9" x2="8" y2="9"></line>
+          </svg>
+          <span>PDF to Word (.docx)</span>
+        </button>
+      </div>
     </div>
   </section>
 
@@ -86,21 +108,21 @@
     <div class="workspace-card" id="appWorkspace">
 
       <!-- Step 1: Upload Dropzone Area -->
-      <div class="dropzone" id="uploadDropzone" role="region" aria-label="PDF File Upload Dropzone" tabindex="0">
-        <input type="file" id="pdfFileInput" accept="application/pdf" multiple class="dropzone-input" aria-label="Upload PDF files" />
+      <div class="dropzone" id="uploadDropzone" role="region" aria-label="File Upload Dropzone" tabindex="0">
+        <input type="file" id="pdfFileInput" accept="application/pdf" multiple class="dropzone-input" aria-label="Upload files" />
         <div class="dropzone-icon">
-          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg id="uploadDropIcon" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
             <polyline points="17 8 12 3 7 8"></polyline>
             <line x1="12" y1="3" x2="12" y2="15"></line>
           </svg>
         </div>
-        <h2 class="dropzone-title">Drop your PDF here, or <span class="gradient-text">Browse files</span></h2>
-        <p class="dropzone-hint">Supports single or multi-page PDF documents up to 100 MB each</p>
+        <h2 class="dropzone-title" id="dropzoneHeading">Drop your PDF here, or <span class="gradient-text">Browse files</span></h2>
+        <p class="dropzone-hint" id="dropzoneSubtext">Supports single or multi-page PDF documents up to 100 MB each</p>
         <div class="dropzone-badges">
           <span class="badge-tag">⚡ Instant In-Browser</span>
           <span class="badge-tag">🔒 Zero Server Upload</span>
-          <span class="badge-tag">📦 ZIP Download Ready</span>
+          <span class="badge-tag" id="badgeOutputType">🖼️ JPEG & DOCX Ready</span>
         </div>
       </div>
 
@@ -111,7 +133,7 @@
           <line x1="12" y1="8" x2="12" y2="12"></line>
           <line x1="12" y1="16" x2="12.01" y2="16"></line>
         </svg>
-        <div class="alert-message" id="errorMessage">Unable to process PDF.</div>
+        <div class="alert-message" id="errorMessage">Unable to process document.</div>
       </div>
 
       <!-- Step 2: File Queue List -->
@@ -135,7 +157,7 @@
           <span>Conversion Settings</span>
         </div>
 
-        <div class="settings-grid">
+        <div class="settings-grid" id="jpegSettingsGrid">
           <div class="setting-group">
             <label for="resolutionSelect" class="setting-label">Rendering Resolution (DPI)</label>
             <select id="resolutionSelect" class="setting-select">
@@ -158,19 +180,23 @@
             <input type="text" id="pageRangeFilter" placeholder="e.g. 1-5, 8, 11 (All by default)" class="setting-input" />
           </div>
         </div>
+
+        <div id="wordSettingsNote" style="display: none; padding-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">
+          📝 Converts PDF pages and text hierarchy into a formatted, editable <strong>Microsoft Word (.docx)</strong> document.
+        </div>
       </section>
 
       <!-- Step 4: Conversion Progress Bar -->
       <div class="progress-section" id="progressSection" style="display: none;" aria-live="polite">
         <div class="progress-header">
-          <span id="progressStepTitle">Converting PDF pages...</span>
+          <span id="progressStepTitle">Converting document...</span>
           <span id="progressPercentNumber">0%</span>
         </div>
         <div class="progress-track">
           <div class="progress-bar" id="progressBar"></div>
         </div>
         <div class="progress-status">
-          <span id="progressDetailText">Preparing canvas renderer...</span>
+          <span id="progressDetailText">Processing document structure...</span>
           <span id="progressPageCount">Page 0 of 0</span>
         </div>
       </div>
@@ -181,11 +207,11 @@
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
           </svg>
-          <span>Convert to JPEG</span>
+          <span id="convertBtnLabel">Convert to JPEG</span>
         </button>
       </div>
 
-      <!-- Step 5 & 6: Results Dashboard -->
+      <!-- Step 5 & 6: Results Dashboard (JPEG Gallery) -->
       <section class="results-dashboard" id="resultsDashboard" style="display: none;">
         <div class="results-header-bar">
           <div class="results-title-group">
@@ -208,12 +234,21 @@
               </svg>
               <span>Download All as ZIP</span>
             </button>
+            <button id="exportToDocxBtn" class="btn btn-secondary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+              </svg>
+              <span>Export as Word (.docx)</span>
+            </button>
             <button id="startOverBtn" class="btn btn-secondary">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
                 <path d="M3 3v5h5"></path>
               </svg>
-              <span>Convert Another PDF</span>
+              <span>Convert Another File</span>
             </button>
           </div>
         </div>
@@ -221,6 +256,36 @@
         <!-- Rendered Images Grid -->
         <div class="images-grid" id="imagesGrid">
           <!-- Dynamic JPEG Image Cards -->
+        </div>
+      </section>
+
+      <!-- Word (.docx) Results Card -->
+      <section class="results-dashboard" id="wordResultsCard" style="display: none;">
+        <div class="results-header-bar">
+          <div class="results-title-group">
+            <h3>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" class="text-success">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+              <span>Word Document Ready!</span>
+            </h3>
+            <p class="results-meta">Converted into editable Microsoft Word format (<span id="docxFileNameDisplay">document.docx</span>)</p>
+          </div>
+
+          <div class="results-action-group">
+            <button id="downloadWordBtn" class="btn btn-primary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Download Word (.docx)</span>
+            </button>
+            <button id="wordStartOverBtn" class="btn btn-secondary">
+              <span>Convert Another File</span>
+            </button>
+          </div>
         </div>
       </section>
 
@@ -241,18 +306,20 @@
     <div class="container">
       <div class="section-header">
         <p class="section-tag">Key Features</p>
-        <h2 class="section-title">Why Choose PDF2JPEG?</h2>
+        <h2 class="section-title">Why Choose Lokah Converter?</h2>
       </div>
 
       <div class="features-grid">
         <div class="feature-card">
           <div class="feature-icon-box">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
             </svg>
           </div>
-          <h4>Fast In-Browser Conversion</h4>
-          <p>Render every PDF page instantly without waiting for slow server queues or network latency.</p>
+          <h4>PDF to Word (.docx)</h4>
+          <p>Extract structured headings, paragraphs, and text layers into an editable Word document.</p>
         </div>
 
         <div class="feature-card">
@@ -264,7 +331,7 @@
             </svg>
           </div>
           <h4>High-Definition Resolution</h4>
-          <p>Choose between Standard, High (150 DPI), and Ultra (300 DPI) to preserve vector-level sharpness.</p>
+          <p>Choose between Standard, High (150 DPI), and Ultra (300 DPI) for crisp JPEG renders.</p>
         </div>
 
         <div class="feature-card">
@@ -297,7 +364,6 @@
               <line x1="12" y1="21" x2="12" y2="12"></line>
               <line x1="12" y1="8" x2="12" y2="3"></line>
               <line x1="20" y1="21" x2="20" y2="16"></line>
-              <line x1="20" y1="12" x2="20" y2="3"></line>
             </svg>
           </div>
           <h4>Custom Page Selection</h4>
@@ -312,7 +378,7 @@
             </svg>
           </div>
           <h4>Fully Responsive</h4>
-          <p>Enjoy a polished experience on desktop, tablet, and mobile screens with touch gesture support.</p>
+          <p>Enjoy a seamless experience on desktop, tablet, and mobile screens with touch support.</p>
         </div>
       </div>
     </div>
@@ -335,14 +401,14 @@
 
         <div class="step-card">
           <div class="step-number">02</div>
-          <h4>Convert Pages</h4>
-          <p>Choose your desired resolution, adjust quality settings, and click "Convert to JPEG".</p>
+          <h4>Choose JPEG or Word</h4>
+          <p>Select your target format (High-Res JPEG images or editable Word .docx document).</p>
         </div>
 
         <div class="step-card">
           <div class="step-number">03</div>
-          <h4>Download JPEGs</h4>
-          <p>Preview each rendered page and download individual files or bundle all images into a ZIP.</p>
+          <h4>Download Files</h4>
+          <p>Preview rendered pages and download your JPEGs, ZIP archive, or Word document instantly.</p>
         </div>
       </div>
     </div>
@@ -359,11 +425,11 @@
       <div class="faq-list">
         <div class="faq-item">
           <button class="faq-question">
-            <span>How do I convert a PDF to JPEG?</span>
+            <span>How do I convert a PDF to Word (.docx)?</span>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </button>
           <div class="faq-answer">
-            Simply drag and drop your PDF into the upload area above, select your desired resolution and quality preferences, and click "Convert to JPEG". Your images will appear in the preview gallery immediately.
+            Select the "PDF to Word (.docx)" tab at the top, upload your PDF file, and click "Convert to Word". The system parses the document's headings and text and compiles an editable Microsoft Word (.docx) file right inside your browser.
           </div>
         </div>
 
@@ -373,7 +439,7 @@
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </button>
           <div class="faq-answer">
-            No! All PDF parsing and image rendering occurs 100% locally inside your web browser. Your private documents are never sent across the internet to any external server.
+            No! All PDF parsing, image rendering, and Word document generation occur 100% locally inside your web browser. Your private documents are never sent across the internet to any external server.
           </div>
         </div>
 
@@ -383,7 +449,7 @@
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </button>
           <div class="faq-answer">
-            Yes! Once conversion finishes, click the "Download All as ZIP" button to save all rendered JPEG pages in a single compressed archive.
+            Yes! For JPEG conversions, click the "Download All as ZIP" button to save all rendered JPEG pages in a single compressed archive.
           </div>
         </div>
 
@@ -393,17 +459,7 @@
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </button>
           <div class="faq-answer">
-            Each page in the PDF is rendered into its own high-definition JPEG file (e.g. <code>document_page_01.jpg</code>, <code>document_page_02.jpg</code>). You can also use the Page Range setting to extract only specific pages.
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question">
-            <span>Does the converter work on mobile devices?</span>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </button>
-          <div class="faq-answer">
-            Yes, PDF2JPEG is fully responsive and works smoothly across mobile phones, tablets, and modern desktop browsers.
+            Each page in the PDF is rendered into its own high-definition JPEG file (e.g. <code>document_page_01.jpg</code>), and for Word conversions, each page is organized with clear page section headings.
           </div>
         </div>
       </div>
@@ -422,9 +478,9 @@
                 <polyline points="14 2 14 8 20 8"></polyline>
               </svg>
             </div>
-            <span>PDF2JPEG</span>
+            <span>Lokah Converter</span>
           </a>
-          <p>Simple, private, and powerful PDF conversion tools for everyone.</p>
+          <p>Simple, private, and powerful PDF & Word conversion tools for everyone.</p>
         </div>
 
         <div class="footer-links-group">
@@ -441,7 +497,7 @@
             <h5>Project</h5>
             <ul>
               <li><a href="https://github.com/karthikeyan0929/lokah" target="_blank" rel="noopener noreferrer">GitHub Repository</a></li>
-              <li><a href="https://lokah.vercel.app" target="_blank" rel="noopener noreferrer">Live Vercel Demo</a></li>
+              <li><a href="https://lokah-nu.vercel.app" target="_blank" rel="noopener noreferrer">Live Vercel Demo</a></li>
               <li><a href="#converter">Privacy Policy</a></li>
             </ul>
           </div>
@@ -449,8 +505,8 @@
       </div>
 
       <div class="footer-bottom">
-        <p>© 2026 Lokah / PDF2JPEG. Open source under the MIT License.</p>
-        <p>Built with PDF.js & Vite</p>
+        <p>© 2026 Lokah Converter. Open source under the MIT License.</p>
+        <p>Built with PDF.js, docx & Vite</p>
       </div>
     </div>
   </footer>

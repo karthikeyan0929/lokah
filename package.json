@@ -16,9 +16,11 @@
     "vite": "^6.4.3"
   },
   "dependencies": {
+    "docx": "^9.7.1",
     "file-saver": "^2.0.5",
     "jszip": "^3.10.2",
     "lucide": "^1.47.0",
+    "mammoth": "^1.12.3",
     "pdfjs-dist": "^5.4.624"
   }
 }

@@ -38,7 +38,7 @@ export async function loadPdfMetadata(file) {
 }
 
 /**
- * Render a single PDF page to JPEG Blob & DataURL
+ * Render a single PDF page to JPEG Blob & DataURL and extract clean text
  */
 export async function renderPageToJpeg(pdfDoc, pageNum, { scale = 2.0, quality = 0.92 }) {
   const page = await pdfDoc.getPage(pageNum);
@@ -50,7 +50,7 @@ export async function renderPageToJpeg(pdfDoc, pageNum, { scale = 2.0, quality =
   canvas.width = Math.floor(viewport.width);
   canvas.height = Math.floor(viewport.height);
 
-  // Clean solid white background (PDF pages can have transparent backgrounds)
+  // Clean solid white background
   ctx.fillStyle = '#FFFFFF';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -69,13 +69,13 @@ export async function renderPageToJpeg(pdfDoc, pageNum, { scale = 2.0, quality =
     canvas.toBlob((b) => resolve(b), 'image/jpeg', quality);
   });
 
-  // Extract text content for preview or searching if needed
-  let textPreview = '';
+  // Extract structured text content for Word (.docx) & Search
+  let textContent = '';
   try {
-    const textContent = await page.getTextContent();
-    textPreview = textContent.items.map((it) => it.str).join(' ');
-  } catch {
-    // Non-critical if text extraction fails
+    const textObj = await page.getTextContent();
+    textContent = textObj.items.map((it) => it.str).join(' ');
+  } catch (err) {
+    console.warn('Text extraction note for page ' + pageNum, err);
   }
 
   // Cleanup canvas reference
@@ -91,12 +91,12 @@ export async function renderPageToJpeg(pdfDoc, pageNum, { scale = 2.0, quality =
     dataUrl,
     blob,
     sizeBytes: blob ? blob.size : 0,
-    textPreview
+    textContent
   };
 }
 
 /**
- * Process an entire PDF file and convert specified pages to JPEGs
+ * Process an entire PDF file and convert specified pages to JPEGs + Text
  */
 export async function convertPdfToJpegs(fileItem, settings, onProgress = null) {
   const { file, pdfDoc } = fileItem;
