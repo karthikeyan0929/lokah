@@ -1,0 +1,24 @@
+{
+  "name": "lokah",
+  "version": "1.0.0",
+  "description": "Welcome to **Lokah**!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^6.4.3"
+  },
+  "dependencies": {
+    "file-saver": "^2.0.5",
+    "jszip": "^3.10.2",
+    "lucide": "^1.47.0",
+    "pdfjs-dist": "^5.4.624"
+  }
+}

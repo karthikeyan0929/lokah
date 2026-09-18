@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lokah - AI-Powered PDF to JPEG Converter & Document Bot</title>
+  <meta name="description" content="Convert PDF documents into crisp high-resolution JPEG images instantly with client-side AI analysis and smart extraction." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="app-container">
+    <!-- Top Navbar -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+            <polyline points="10 9 9 9 8 9"></polyline>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>Lokah <span class="badge">AI PDF Bot</span></h1>
+          <p class="tagline">Convert PDF to High-Res JPEG & Chat with Documents</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button id="themeToggleBtn" class="btn btn-icon" title="Toggle Theme" aria-label="Toggle Theme">
+          <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+        <a href="https://github.com/karthikeyan0929/lokah" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          <span>GitHub</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Main Workspace Layout -->
+    <main class="main-layout">
+      <!-- Left Column: Converter Core -->
+      <section class="converter-section">
+        <!-- Upload Card -->
+        <div class="card upload-card" id="dropZone">
+          <input type="file" id="fileInput" accept="application/pdf" class="file-input-hidden" />
+          <div class="upload-content">
+            <div class="upload-icon-circle">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+            </div>
+            <h2 class="upload-title">Drop your PDF file here, or <span class="highlight-text">Browse</span></h2>
+            <p class="upload-subtitle">Supports multi-page documents • 100% private in-browser processing</p>
+            <div class="upload-badge-row">
+              <span class="pill-badge">⚡ Instant Render</span>
+              <span class="pill-badge">🔒 Zero Server Upload</span>
+              <span class="pill-badge">✨ 300 DPI Ready</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Conversion Settings & Actions Bar -->
+        <div class="card settings-card" id="settingsPanel" style="display: none;">
+          <div class="settings-header">
+            <div class="file-meta">
+              <span class="file-name" id="fileNameDisplay">document.pdf</span>
+              <span class="file-stats" id="fileStatsDisplay">0 pages • 0 MB</span>
+            </div>
+            <button id="clearFileBtn" class="btn btn-ghost btn-sm text-danger" title="Remove PDF">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              </svg>
+              Remove
+            </button>
+          </div>
+
+          <div class="settings-grid">
+            <div class="setting-item">
+              <label for="scaleSelect">Image Resolution (Quality)</label>
+              <select id="scaleSelect" class="form-select">
+                <option value="1.5">Standard Web (1.5x / ~110 DPI)</option>
+                <option value="2.0" selected>High Definition (2.0x / ~150 DPI)</option>
+                <option value="3.0">Ultra Crisp / Print (3.0x / ~220 DPI)</option>
+                <option value="4.0">Maximum Ultra HD (4.0x / ~300 DPI)</option>
+              </select>
+            </div>
+
+            <div class="setting-item">
+              <label for="qualitySlider">JPEG Quality: <span id="qualityVal">92%</span></label>
+              <input type="range" id="qualitySlider" min="50" max="100" value="92" class="form-slider" />
+            </div>
+
+            <div class="setting-item">
+              <label for="pageRangeInput">Page Range (Optional)</label>
+              <input type="text" id="pageRangeInput" placeholder="e.g. 1-5, 8, 10" class="form-input" />
+            </div>
+          </div>
+
+          <!-- Progress Bar -->
+          <div class="progress-wrap" id="progressContainer" style="display: none;">
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" id="progressBarFill"></div>
+            </div>
+            <div class="progress-text" id="progressText">Processing pages...</div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="action-buttons-row">
+            <button id="convertAllBtn" class="btn btn-primary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Download All as ZIP</span>
+            </button>
+
+            <button id="askAiSummaryBtn" class="btn btn-accent">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 18a8 8 0 1 1 8-8 8 8 0 0 1-8 8z"></path>
+                <path d="M12 6v6l4 2"></path>
+              </svg>
+              <span>AI Summarize & Analyze</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Rendered Pages Grid Gallery -->
+        <div class="gallery-section" id="gallerySection" style="display: none;">
+          <div class="gallery-header">
+            <h3 class="section-title">Rendered JPEG Previews (<span id="renderedCountDisplay">0</span>)</h3>
+            <div class="gallery-controls">
+              <button id="selectAllBtn" class="btn btn-ghost btn-sm">Select All</button>
+              <button id="downloadSelectedBtn" class="btn btn-secondary btn-sm" disabled>Download Selected (<span id="selectedCountDisplay">0</span>)</button>
+            </div>
+          </div>
+
+          <div class="pages-grid" id="pagesGrid">
+            <!-- Dynamic Page Cards inserted here -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: AI Assistant & Bot Panel -->
+      <aside class="ai-bot-panel card">
+        <div class="bot-header">
+          <div class="bot-avatar">
+            <div class="pulse-ring"></div>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+          </div>
+          <div class="bot-title-area">
+            <h3>Lokah Document AI</h3>
+            <span class="status-indicator"><span class="status-dot"></span> Ready & Conversational</span>
+          </div>
+        </div>
+
+        <!-- Chat Conversation Area -->
+        <div class="chat-messages" id="chatMessages">
+          <div class="chat-bubble bot-bubble">
+            <div class="bubble-header">Lokah AI Bot</div>
+            <div class="bubble-body">
+              Hello! 👋 Drop any PDF document to get started. I can convert your pages into ultra-crisp JPEG images, summarize the document contents, extract tables & text, or answer any question about your PDF.
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick AI Prompt Chips -->
+        <div class="prompt-chips" id="promptChips">
+          <button class="chip" data-prompt="Summarize this entire PDF in 3 key bullet points">📋 Summarize PDF</button>
+          <button class="chip" data-prompt="Extract key action items, dates, and names from the document">🔍 Key Details & Dates</button>
+          <button class="chip" data-prompt="What is the structure, page count, and visual layout of this file?">📑 Document Layout</button>
+        </div>
+
+        <!-- Chat Input Bar -->
+        <form class="chat-input-form" id="chatForm">
+          <input
+            type="text"
+            id="chatInput"
+            placeholder="Ask anything about your PDF document..."
+            autocomplete="off"
+            class="chat-input"
+          />
+          <button type="submit" id="sendBtn" class="btn btn-primary btn-icon" title="Send message" aria-label="Send">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </form>
+      </aside>
+    </main>
+
+    <!-- Fullscreen Preview Modal -->
+    <div class="modal-backdrop" id="previewModal" style="display: none;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="modalPageTitle">Page Preview</h4>
+          <button id="closeModalBtn" class="btn btn-icon btn-ghost">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <div class="modal-body">
+          <img id="modalPreviewImg" src="" alt="Full Resolution Page Preview" />
+        </div>
+        <div class="modal-footer">
+          <button id="modalDownloadBtn" class="btn btn-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Download High-Res JPEG
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
