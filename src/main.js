@@ -5,12 +5,15 @@ import { convertPdfToDocx } from './lib/wordConverter.js';
 import { analyzePdfDocument } from './lib/analyzer.js';
 import { ImageEditor } from './lib/imageEditor.js';
 import { saveConversionRecord, getConversionHistory, clearConversionHistory, generateTemporaryShareLink } from './lib/historyService.js';
+import { mergePdfFiles, compressPdfFile } from './lib/pdfTools.js';
+import { VoiceAssistant, translateDocumentText } from './lib/voiceAi.js';
 import { saveAs } from 'file-saver';
 
 // Studio State Machine
+const voiceAssistant = new VoiceAssistant();
 const state = {
-  mode: 'pdf-to-jpeg',
-  queue: [], // Array of { id, file, pdfDoc, pageCount, analysis, status }
+  mode: 'pdf-to-jpeg', // 'pdf-to-jpeg' | 'pdf-to-docx' | 'merge-pdf' | 'compress-pdf' | 'voice-ai'
+  queue: [],
   settings: {
     dpi: 150,
     quality: 0.92,
@@ -30,6 +33,16 @@ const state = {
 // DOM References
 const tabPdfToJpeg = document.getElementById('tabPdfToJpeg');
 const tabPdfToDocx = document.getElementById('tabPdfToDocx');
+const tabMergePdf = document.getElementById('tabMergePdf');
+const tabCompressPdf = document.getElementById('tabCompressPdf');
+const tabVoiceAi = document.getElementById('tabVoiceAi');
+const voiceAiControlsBox = document.getElementById('voiceAiControlsBox');
+const voicePlayBtn = document.getElementById('voicePlayBtn');
+const voiceStopBtn = document.getElementById('voiceStopBtn');
+const targetLangSelect = document.getElementById('targetLangSelect');
+const translateDocBtn = document.getElementById('translateDocBtn');
+const translationOutputBox = document.getElementById('translationOutputBox');
+
 const dropzone = document.getElementById('uploadDropzone');
 const fileInput = document.getElementById('pdfFileInput');
 const errorAlert = document.getElementById('errorAlert');
@@ -172,24 +185,55 @@ function initStudio() {
 function setupModeTabs() {
   tabPdfToJpeg.addEventListener('click', () => setMode('pdf-to-jpeg'));
   tabPdfToDocx.addEventListener('click', () => setMode('pdf-to-docx'));
+  tabMergePdf.addEventListener('click', () => setMode('merge-pdf'));
+  tabCompressPdf.addEventListener('click', () => setMode('compress-pdf'));
+  tabVoiceAi.addEventListener('click', () => setMode('voice-ai'));
+
+  // Voice & Translator actions
+  voicePlayBtn.addEventListener('click', () => {
+    const text = state.queue[0]?.analysis?.pageDetails?.map(p => `Page ${p.pageNum}. `).join(' ') || state.convertedImages.map(i => i.textContent).join(' ');
+    voiceAssistant.speakText(text || 'Welcome to Lokah Smart PDF Studio.');
+  });
+  voiceStopBtn.addEventListener('click', () => voiceAssistant.stop());
+
+  translateDocBtn.addEventListener('click', async () => {
+    const sample = state.convertedImages[0]?.textContent || 'This document contains structured text content.';
+    translateDocBtn.textContent = 'Translating...';
+    const translated = await translateDocumentText(sample, targetLangSelect.value);
+    translationOutputBox.style.display = 'block';
+    translationOutputBox.innerHTML = `<strong>Translated (${targetLangSelect.value.toUpperCase()}):</strong><br/>${translated}`;
+    translateDocBtn.textContent = '🌐 Translate Document';
+  });
 }
 
 function setMode(newMode) {
   state.mode = newMode;
-  tabPdfToJpeg.classList.toggle('active', newMode === 'pdf-to-jpeg');
-  tabPdfToDocx.classList.toggle('active', newMode === 'pdf-to-docx');
+  [tabPdfToJpeg, tabPdfToDocx, tabMergePdf, tabCompressPdf, tabVoiceAi].forEach(t => t?.classList.remove('active'));
+
+  if (newMode === 'pdf-to-jpeg') tabPdfToJpeg.classList.add('active');
+  if (newMode === 'pdf-to-docx') tabPdfToDocx.classList.add('active');
+  if (newMode === 'merge-pdf') tabMergePdf.classList.add('active');
+  if (newMode === 'compress-pdf') tabCompressPdf.classList.add('active');
+  if (newMode === 'voice-ai') tabVoiceAi.classList.add('active');
+
+  jpegSettingsGrid.style.display = newMode === 'pdf-to-jpeg' ? 'grid' : 'none';
+  wordSettingsNote.style.display = newMode === 'pdf-to-docx' ? 'block' : 'none';
+  voiceAiControlsBox.style.display = newMode === 'voice-ai' ? 'block' : 'none';
 
   if (newMode === 'pdf-to-docx') {
-    jpegSettingsGrid.style.display = 'none';
-    wordSettingsNote.style.display = 'block';
     convertBtnLabel.textContent = 'Convert to Word (.docx)';
+  } else if (newMode === 'merge-pdf') {
+    convertBtnLabel.textContent = 'Merge All PDFs into One';
+  } else if (newMode === 'compress-pdf') {
+    convertBtnLabel.textContent = 'Compress & Optimize PDF';
+  } else if (newMode === 'voice-ai') {
+    convertBtnLabel.textContent = 'Process & Activate Voice AI';
   } else {
-    jpegSettingsGrid.style.display = 'grid';
-    wordSettingsNote.style.display = 'none';
     convertBtnLabel.textContent = 'Convert & Process Studio';
   }
   hideError();
 }
+
 
 function setupDragAndDrop() {
   ['dragenter', 'dragover'].forEach((ev) => {
@@ -509,13 +553,25 @@ async function handleConversion() {
       totalRendered += images.length;
       renderQueueList();
 
-      if (state.mode === 'pdf-to-docx') {
+      if (state.mode === 'merge-pdf') {
+        const fileList = validItems.map(i => i.file);
+        progressDetailText.textContent = `Merging ${fileList.length} PDF files...`;
+        await mergePdfFiles(fileList);
+        alert(`Successfully merged ${fileList.length} files into merged_document.pdf!`);
+        break;
+      } else if (state.mode === 'compress-pdf') {
+        progressDetailText.textContent = `Compressing ${item.file.name}...`;
+        const comp = await compressPdfFile(item.file);
+        alert(`Compressed ${item.file.name}!\nOriginal: ${formatFileSize(comp.originalSize)}\nCompressed: ${formatFileSize(comp.compressedSize)}\nSavings: ${comp.savingsPercent}%`);
+        break;
+      } else if (state.mode === 'pdf-to-docx') {
         const docxResult = await convertPdfToDocx({
           fileName: item.file.name,
           pages: images
         });
         state.generatedDocx = docxResult;
       }
+
     }
 
     const durationSeconds = ((performance.now() - startTime) / 1000).toFixed(1);
