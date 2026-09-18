@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lokah Converter – Convert PDF to JPEG & Word (DOCX) Online</title>
-  <meta name="description" content="Convert PDF documents into high-quality JPEG images or editable Word (.docx) documents. 100% private in-browser conversion." />
+  <title>Smart PDF Conversion Studio – PDF to JPEG & Word Suite</title>
+  <meta name="description" content="Professional PDF Conversion Studio with deep document analysis, page selection, smart optimization, image editor, watermarking, OCR text extraction, and ZIP downloads." />
   
-  <!-- Favicon & Fonts -->
+  <!-- Favicon & Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
@@ -18,7 +18,7 @@
   <!-- Site Navigation Header -->
   <header class="site-header">
     <div class="container nav-container">
-      <a href="#" class="brand-logo" aria-label="Lokah Converter Home">
+      <a href="#" class="brand-logo" aria-label="PDF Conversion Studio Home">
         <div class="brand-icon-box">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
@@ -28,19 +28,20 @@
             <polyline points="10 9 9 9 8 9"></polyline>
           </svg>
         </div>
-        <span>Lokah</span>
-        <span class="brand-badge">PDF & Word</span>
+        <span>PDF Studio</span>
+        <span class="brand-badge">PRO SUITE</span>
       </a>
 
       <nav class="main-nav" aria-label="Main Navigation">
-        <a href="#converter" class="nav-link">Converter</a>
+        <a href="#converter" class="nav-link">Studio Workspace</a>
         <a href="#features" class="nav-link">Features</a>
-        <a href="#how-it-works" class="nav-link">How It Works</a>
+        <a href="#how-it-works" class="nav-link">Workflow</a>
+        <a href="#history" class="nav-link" id="navHistoryLink">History (<span id="navHistoryCount">0</span>)</a>
         <a href="#faq" class="nav-link">FAQ</a>
       </nav>
 
       <div class="header-right">
-        <button id="themeToggleBtn" class="btn btn-icon btn-ghost" title="Toggle Dark/Light Mode" aria-label="Toggle theme">
+        <button id="themeToggleBtn" class="btn btn-icon btn-ghost" title="Toggle Theme" aria-label="Toggle theme">
           <svg id="themeIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="5"></circle>
             <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -53,7 +54,7 @@
             <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
           </svg>
         </button>
-        <a href="https://github.com/karthikeyan0929/lokah" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" aria-label="GitHub Repository">
+        <a href="https://github.com/karthikeyan0929/lokah" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
           </svg>
@@ -63,23 +64,23 @@
     </div>
   </header>
 
-  <!-- Hero Section with Conversion Mode Switcher -->
+  <!-- Hero Section -->
   <section class="hero-section" id="converter">
     <div class="container">
       <div class="hero-pill">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <polyline points="20 6 9 17 4 12"></polyline>
         </svg>
-        <span>High-Definition Canvas & Word Engine</span>
+        <span>Advanced Smart Document Processing Engine</span>
       </div>
       <h1 class="hero-title">
-        Convert <span class="gradient-text">PDF to JPEG & Word</span> Instantly
+        Convert, Optimize & Transform <span class="gradient-text">PDF Studio</span>
       </h1>
       <p class="hero-subtitle">
-        Transform PDF documents into high-resolution JPEG images or editable Word (.docx) files directly in your browser.
+        Turn PDF pages into crisp high-definition JPEGs or editable Word documents with deep document analysis, built-in image editing, watermarking, and smart optimization.
       </p>
 
-      <!-- Mode Selector Tabs -->
+      <!-- Conversion Mode Switcher Tabs -->
       <div class="mode-tabs-container">
         <button class="mode-tab active" id="tabPdfToJpeg" data-mode="pdf-to-jpeg">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -87,7 +88,7 @@
             <circle cx="8.5" cy="8.5" r="1.5"></circle>
             <polyline points="21 15 16 10 5 21"></polyline>
           </svg>
-          <span>PDF to JPEG</span>
+          <span>PDF to JPEG Studio</span>
         </button>
         <button class="mode-tab" id="tabPdfToDocx" data-mode="pdf-to-docx">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -118,11 +119,12 @@
           </svg>
         </div>
         <h2 class="dropzone-title" id="dropzoneHeading">Drop your PDF here, or <span class="gradient-text">Browse files</span></h2>
-        <p class="dropzone-hint" id="dropzoneSubtext">Supports single or multi-page PDF documents up to 100 MB each</p>
+        <p class="dropzone-hint" id="dropzoneSubtext">Supports single or multi-page batch PDF files up to 100 MB each</p>
         <div class="dropzone-badges">
-          <span class="badge-tag">⚡ Instant In-Browser</span>
-          <span class="badge-tag">🔒 Zero Server Upload</span>
-          <span class="badge-tag" id="badgeOutputType">🖼️ JPEG & DOCX Ready</span>
+          <span class="badge-tag">⚡ In-Browser Render</span>
+          <span class="badge-tag">🔒 100% Client Privacy</span>
+          <span class="badge-tag">🔍 Deep Analysis Ready</span>
+          <span class="badge-tag">🎨 Canvas Editor Included</span>
         </div>
       </div>
 
@@ -139,46 +141,144 @@
       <!-- Step 2: File Queue List -->
       <section class="file-queue-section" id="queueSection" style="display: none;">
         <div class="queue-title">
-          <span>Selected Document (<span id="fileCountBadge">1</span>)</span>
-          <button id="clearAllFilesBtn" class="btn btn-ghost btn-sm text-danger" title="Remove all files">Clear</button>
+          <span>Batch Documents Queue (<span id="fileCountBadge">1</span>)</span>
+          <button id="clearAllFilesBtn" class="btn btn-ghost btn-sm text-danger" title="Remove all files">Clear Queue</button>
         </div>
         <div class="file-queue-list" id="fileQueueList">
           <!-- Dynamically populated file cards -->
         </div>
       </section>
 
-      <!-- Step 3: Conversion Settings -->
+      <!-- Step 2.5: ADVANCED PDF ANALYSIS PANEL -->
+      <section class="analysis-panel-card" id="analysisPanel" style="display: none;">
+        <div class="panel-header">
+          <div class="panel-title-wrap">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-primary">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+            </svg>
+            <h4>Smart PDF Document Analysis</h4>
+          </div>
+          <span class="status-badge" id="scannedStatusBadge">Scanned Pages: 0</span>
+        </div>
+
+        <div class="analysis-grid" id="analysisGrid">
+          <div class="stat-card">
+            <span class="stat-label">Total Pages</span>
+            <span class="stat-val" id="statPages">0</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">File Size</span>
+            <span class="stat-val" id="statSize">0 MB</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Selectable Text</span>
+            <span class="stat-val" id="statTextDetected">Yes</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Embedded Images</span>
+            <span class="stat-val" id="statImagesCount">0</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Page Dimensions</span>
+            <span class="stat-val" id="statDimensions">0 × 0 pt</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-label">Orientation</span>
+            <span class="stat-val" id="statOrientation">Portrait</span>
+          </div>
+        </div>
+
+        <!-- Smart Optimization Recommendation Banner -->
+        <div class="smart-rec-banner" id="smartRecBanner">
+          <div class="rec-icon">💡</div>
+          <div class="rec-content">
+            <h5 id="recTitle">Smart Optimization Recommendation</h5>
+            <p id="recDesc">Recommended: 150 DPI • 85% Quality. Estimated output: 4.2 MB.</p>
+          </div>
+          <button id="applyRecBtn" class="btn btn-primary btn-sm">Apply Recommendation</button>
+        </div>
+      </section>
+
+      <!-- Step 3: Page Thumbnails & Smart Selection Bar -->
+      <section class="page-selector-box" id="pageSelectorBox" style="display: none;">
+        <div class="selector-header">
+          <h5>Page Selection (<span id="selectedPagesCountText">All Pages</span>)</h5>
+          <div class="selector-quick-btns">
+            <button class="btn btn-ghost btn-sm" id="selectEvenBtn">Even Pages</button>
+            <button class="btn btn-ghost btn-sm" id="selectOddBtn">Odd Pages</button>
+            <button class="btn btn-ghost btn-sm" id="invertSelectionBtn">Invert</button>
+            <button class="btn btn-ghost btn-sm" id="selectAllPagesBtn">Select All</button>
+          </div>
+        </div>
+        <div class="smart-detection-actions" id="smartDetectionRow">
+          <span class="subtext">Smart Page Actions:</span>
+          <button class="btn btn-secondary btn-sm" id="removeBlankPagesBtn">🗑️ Exclude Blank Pages</button>
+          <button class="btn btn-secondary btn-sm" id="autoRotatePagesBtn">🔄 Auto-Rotate All 90°</button>
+        </div>
+      </section>
+
+      <!-- Step 4: Full Conversion Settings -->
       <section class="settings-box" id="settingsBox" style="display: none;">
         <div class="settings-heading">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <circle cx="12" cy="12" r="3"></circle>
             <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
           </svg>
-          <span>Conversion Settings</span>
+          <span>Studio Conversion Settings</span>
         </div>
 
         <div class="settings-grid" id="jpegSettingsGrid">
           <div class="setting-group">
-            <label for="resolutionSelect" class="setting-label">Rendering Resolution (DPI)</label>
-            <select id="resolutionSelect" class="setting-select">
-              <option value="standard">Standard Web (~100 DPI / 1.25x)</option>
-              <option value="high" selected>High Definition (~150 DPI / 2.0x)</option>
-              <option value="ultra">Very High (~300 DPI / 3.0x)</option>
+            <label for="dpiSelect" class="setting-label">Resolution / DPI</label>
+            <select id="dpiSelect" class="setting-select">
+              <option value="72">72 DPI (Web Screen / 1.0x)</option>
+              <option value="150" selected>150 DPI (High Definition / 2.0x)</option>
+              <option value="300">300 DPI (Ultra Sharp / Print / 4.0x)</option>
+              <option value="600">600 DPI (Maximum Archival / 8.0x)</option>
             </select>
           </div>
 
           <div class="setting-group">
-            <label for="qualitySlider" class="setting-label">JPEG Quality Compression</label>
+            <label for="qualitySlider" class="setting-label">JPEG Quality: <span id="qualityValDisplay" class="quality-badge">92%</span></label>
             <div class="quality-slider-row">
-              <input type="range" id="qualitySlider" min="50" max="100" value="92" class="setting-range" />
-              <span id="qualityValDisplay" class="quality-badge">92%</span>
+              <input type="range" id="qualitySlider" min="20" max="100" value="92" class="setting-range" />
             </div>
           </div>
 
           <div class="setting-group">
-            <label for="pageRangeFilter" class="setting-label">Page Selection (Optional)</label>
-            <input type="text" id="pageRangeFilter" placeholder="e.g. 1-5, 8, 11 (All by default)" class="setting-input" />
+            <label for="pageRangeFilter" class="setting-label">Page Range Filter</label>
+            <input type="text" id="pageRangeFilter" placeholder="e.g. 1-5, 8, 12 (All by default)" class="setting-input" />
           </div>
+
+          <div class="setting-group">
+            <label for="namingPatternInput" class="setting-label">Output Filename Pattern</label>
+            <input type="text" id="namingPatternInput" value="{filename}_page_{page}" class="setting-input" />
+          </div>
+
+          <!-- Color & Optimization Toggles -->
+          <div class="setting-group checkbox-group">
+            <label class="custom-checkbox-label">
+              <input type="checkbox" id="grayscaleToggle" />
+              <span>Convert to Grayscale (B&W)</span>
+            </label>
+            <label class="custom-checkbox-label">
+              <input type="checkbox" id="watermarkToggle" />
+              <span>Add Custom Watermark</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Optional Watermark Config Box -->
+        <div class="watermark-config-row" id="watermarkConfigRow" style="display: none;">
+          <input type="text" id="watermarkTextInput" placeholder="Watermark Text (e.g. CONFIDENTIAL)" class="setting-input" style="flex: 2;" />
+          <select id="watermarkPositionSelect" class="setting-select" style="flex: 1;">
+            <option value="center" selected>Center</option>
+            <option value="top-left">Top Left</option>
+            <option value="top-right">Top Right</option>
+            <option value="bottom-left">Bottom Left</option>
+            <option value="bottom-right">Bottom Right</option>
+          </select>
         </div>
 
         <div id="wordSettingsNote" style="display: none; padding-top: 0.5rem; font-size: 0.9rem; color: var(--text-secondary);">
@@ -186,10 +286,10 @@
         </div>
       </section>
 
-      <!-- Step 4: Conversion Progress Bar -->
+      <!-- Step 5: Conversion Progress Bar -->
       <div class="progress-section" id="progressSection" style="display: none;" aria-live="polite">
         <div class="progress-header">
-          <span id="progressStepTitle">Converting document...</span>
+          <span id="progressStepTitle">Processing studio conversion...</span>
           <span id="progressPercentNumber">0%</span>
         </div>
         <div class="progress-track">
@@ -207,11 +307,37 @@
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"></path>
           </svg>
-          <span id="convertBtnLabel">Convert to JPEG</span>
+          <span id="convertBtnLabel">Convert & Process Studio</span>
         </button>
       </div>
 
-      <!-- Step 5 & 6: Results Dashboard (JPEG Gallery) -->
+      <!-- Step 6: Conversion Summary & Metrics -->
+      <section class="summary-metrics-card" id="summaryMetricsCard" style="display: none;">
+        <div class="summary-header">
+          <h4>✅ Conversion Summary & Performance</h4>
+          <span class="badge-time" id="processingTimeBadge">Time: 2.4s</span>
+        </div>
+        <div class="summary-metrics-grid">
+          <div class="metric-item">
+            <span class="m-label">Images Generated</span>
+            <strong class="m-val" id="metricImagesCount">0</strong>
+          </div>
+          <div class="metric-item">
+            <span class="m-label">Original PDF Size</span>
+            <strong class="m-val" id="metricOrigSize">0 MB</strong>
+          </div>
+          <div class="metric-item">
+            <span class="m-label">Total JPEG Size</span>
+            <strong class="m-val" id="metricOutputSize">0 MB</strong>
+          </div>
+          <div class="metric-item">
+            <span class="m-label">Avg. Size / Page</span>
+            <strong class="m-val" id="metricAvgSize">0 KB</strong>
+          </div>
+        </div>
+      </section>
+
+      <!-- Step 7: Results Gallery & Image Actions -->
       <section class="results-dashboard" id="resultsDashboard" style="display: none;">
         <div class="results-header-bar">
           <div class="results-title-group">
@@ -220,9 +346,9 @@
                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                 <polyline points="22 4 12 14.01 9 11.01"></polyline>
               </svg>
-              <span>Conversion Complete</span>
+              <span>Results Gallery (<span id="totalJpegsCount">0</span>)</span>
             </h3>
-            <p class="results-meta">Generated <strong id="totalJpegsCount">0</strong> high-quality JPEG images</p>
+            <p class="results-meta">High-definition rasterized JPEG pages</p>
           </div>
 
           <div class="results-action-group">
@@ -234,21 +360,23 @@
               </svg>
               <span>Download All as ZIP</span>
             </button>
-            <button id="exportToDocxBtn" class="btn btn-secondary">
+            <button id="extractAllTextBtn" class="btn btn-secondary">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                <polyline points="14 2 14 8 20 8"></polyline>
-                <line x1="16" y1="13" x2="8" y2="13"></line>
-                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <line x1="17" y1="10" x2="3" y2="10"></line>
+                <line x1="21" y1="6" x2="3" y2="6"></line>
+                <line x1="21" y1="14" x2="3" y2="14"></line>
+                <line x1="17" y1="18" x2="3" y2="18"></line>
               </svg>
-              <span>Export as Word (.docx)</span>
+              <span>Extract Text (OCR)</span>
+            </button>
+            <button id="exportToDocxBtn" class="btn btn-secondary">
+              <span>Export as Word</span>
+            </button>
+            <button id="createShareLinkBtn" class="btn btn-secondary">
+              <span>Share Link</span>
             </button>
             <button id="startOverBtn" class="btn btn-secondary">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
-                <path d="M3 3v5h5"></path>
-              </svg>
-              <span>Convert Another File</span>
+              <span>Convert Another</span>
             </button>
           </div>
         </div>
@@ -289,6 +417,17 @@
         </div>
       </section>
 
+      <!-- Step 8: CONVERSION HISTORY SECTION -->
+      <section class="history-panel-section" id="history">
+        <div class="history-header">
+          <h4>Recent Conversion History (Local)</h4>
+          <button id="clearHistoryBtn" class="btn btn-ghost btn-sm text-danger">Clear History</button>
+        </div>
+        <div class="history-list" id="historyList">
+          <p class="subtext">No recent conversions recorded yet.</p>
+        </div>
+      </section>
+
       <!-- Privacy Notice Footer inside Workspace -->
       <div class="privacy-banner">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -305,33 +444,66 @@
   <section class="section" id="features">
     <div class="container">
       <div class="section-header">
-        <p class="section-tag">Key Features</p>
-        <h2 class="section-title">Why Choose Lokah Converter?</h2>
+        <p class="section-tag">Pro Studio Capabilities</p>
+        <h2 class="section-title">Everything You Need for PDF Conversions</h2>
       </div>
 
       <div class="features-grid">
         <div class="feature-card">
           <div class="feature-icon-box">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-              <polyline points="14 2 14 8 20 8"></polyline>
-              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+              <polyline points="21 15 16 10 5 21"></polyline>
             </svg>
           </div>
-          <h4>PDF to Word (.docx)</h4>
-          <p>Extract structured headings, paragraphs, and text layers into an editable Word document.</p>
+          <h4>Built-in Canvas Image Editor</h4>
+          <p>Crop, rotate, filter (brightness/contrast), grayscale, or watermark any generated JPEG.</p>
         </div>
 
         <div class="feature-card">
           <div class="feature-icon-box">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-              <circle cx="8.5" cy="8.5" r="1.5"></circle>
-              <polyline points="21 15 16 10 5 21"></polyline>
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
             </svg>
           </div>
-          <h4>High-Definition Resolution</h4>
-          <p>Choose between Standard, High (150 DPI), and Ultra (300 DPI) for crisp JPEG renders.</p>
+          <h4>Deep PDF Document Analysis</h4>
+          <p>Detect page counts, orientations, scanned elements, image counts, and dimensions automatically.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="17" y1="10" x2="3" y2="10"></line>
+              <line x1="21" y1="6" x2="3" y2="6"></line>
+              <line x1="21" y1="14" x2="3" y2="14"></line>
+              <line x1="17" y1="18" x2="3" y2="18"></line>
+            </svg>
+          </div>
+          <h4>OCR / Text Extraction</h4>
+          <p>Extract structured document text into downloadable TXT files or copy directly with one click.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+            </svg>
+          </div>
+          <h4>PDF to Word (.docx)</h4>
+          <p>Compile document pages into editable Microsoft Word (.docx) format with formatted headings.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="21 8 21 21 3 21 3 8"></polyline>
+              <rect x="1" y="3" width="22" height="5"></rect>
+            </svg>
+          </div>
+          <h4>ZIP Bulk Packaging</h4>
+          <p>Download individual pages or export all converted pages in an organized ZIP archive.</p>
         </div>
 
         <div class="feature-card">
@@ -340,45 +512,8 @@
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
             </svg>
           </div>
-          <h4>100% Private & Secure</h4>
-          <p>Documents never leave your device. All parsing and rendering happens securely in your browser.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon-box">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="21 8 21 21 3 21 3 8"></polyline>
-              <rect x="1" y="3" width="22" height="5"></rect>
-              <line x1="10" y1="12" x2="14" y2="12"></line>
-            </svg>
-          </div>
-          <h4>Single & ZIP Bulk Downloads</h4>
-          <p>Save individual pages or export all converted JPEG pages in a single compressed ZIP archive.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon-box">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <line x1="4" y1="21" x2="4" y2="14"></line>
-              <line x1="4" y1="10" x2="4" y2="3"></line>
-              <line x1="12" y1="21" x2="12" y2="12"></line>
-              <line x1="12" y1="8" x2="12" y2="3"></line>
-              <line x1="20" y1="21" x2="20" y2="16"></line>
-            </svg>
-          </div>
-          <h4>Custom Page Selection</h4>
-          <p>Extract only specific page ranges (e.g. 1-3, 5) or convert your entire multi-page document.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon-box">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-              <line x1="12" y1="18" x2="12.01" y2="18"></line>
-            </svg>
-          </div>
-          <h4>Fully Responsive</h4>
-          <p>Enjoy a seamless experience on desktop, tablet, and mobile screens with touch support.</p>
+          <h4>100% Client-Side Privacy</h4>
+          <p>Zero server uploads. Conversion takes place in browser memory with automated cleanup.</p>
         </div>
       </div>
     </div>
@@ -388,27 +523,27 @@
   <section class="section" id="how-it-works" style="background-color: var(--bg-subtle);">
     <div class="container">
       <div class="section-header">
-        <p class="section-tag">Simple Workflow</p>
-        <h2 class="section-title">How It Works in 3 Easy Steps</h2>
+        <p class="section-tag">Complete Flow</p>
+        <h2 class="section-title">The Smart Studio Pipeline</h2>
       </div>
 
       <div class="steps-grid">
         <div class="step-card">
           <div class="step-number">01</div>
-          <h4>Upload PDF</h4>
-          <p>Drag and drop your PDF file or browse your device to select single or multi-page documents.</p>
+          <h4>Upload & Analyze</h4>
+          <p>Inspect document metadata, scanned elements, text layers, and aspect ratios.</p>
         </div>
 
         <div class="step-card">
           <div class="step-number">02</div>
-          <h4>Choose JPEG or Word</h4>
-          <p>Select your target format (High-Res JPEG images or editable Word .docx document).</p>
+          <h4>Select & Optimize</h4>
+          <p>Choose DPI, JPEG quality, filter odd/even pages, or apply smart recommendations.</p>
         </div>
 
         <div class="step-card">
           <div class="step-number">03</div>
-          <h4>Download Files</h4>
-          <p>Preview rendered pages and download your JPEGs, ZIP archive, or Word document instantly.</p>
+          <h4>Convert & Edit</h4>
+          <p>Render high-definition JPEGs, edit colors, apply watermarks, and download as ZIP.</p>
         </div>
       </div>
     </div>
@@ -418,48 +553,38 @@
   <section class="section" id="faq">
     <div class="container">
       <div class="section-header">
-        <p class="section-tag">Frequently Asked Questions</p>
-        <h2 class="section-title">Got Questions? We’ve Got Answers.</h2>
+        <p class="section-tag">FAQ</p>
+        <h2 class="section-title">Frequently Asked Questions</h2>
       </div>
 
       <div class="faq-list">
         <div class="faq-item">
           <button class="faq-question">
-            <span>How do I convert a PDF to Word (.docx)?</span>
+            <span>What resolution / DPI should I choose?</span>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </button>
           <div class="faq-answer">
-            Select the "PDF to Word (.docx)" tab at the top, upload your PDF file, and click "Convert to Word". The system parses the document's headings and text and compiles an editable Microsoft Word (.docx) file right inside your browser.
+            150 DPI is recommended for crisp on-screen reading and presentations, while 300 DPI is ideal for professional printing and archival storage. Higher DPI produces larger file sizes.
           </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question">
-            <span>Are my files uploaded to a server?</span>
+            <span>Can I edit individual converted JPEG images?</span>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </button>
           <div class="faq-answer">
-            No! All PDF parsing, image rendering, and Word document generation occur 100% locally inside your web browser. Your private documents are never sent across the internet to any external server.
+            Yes! Click the "Edit" button on any image card to open the built-in Canvas Editor, where you can rotate, adjust brightness/contrast, apply filters, and add watermarks with instant Undo/Redo.
           </div>
         </div>
 
         <div class="faq-item">
           <button class="faq-question">
-            <span>Can I download all converted pages at once?</span>
+            <span>Are my files safe and private?</span>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
           </button>
           <div class="faq-answer">
-            Yes! For JPEG conversions, click the "Download All as ZIP" button to save all rendered JPEG pages in a single compressed archive.
-          </div>
-        </div>
-
-        <div class="faq-item">
-          <button class="faq-question">
-            <span>What happens if my PDF has multiple pages?</span>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </button>
-          <div class="faq-answer">
-            Each page in the PDF is rendered into its own high-definition JPEG file (e.g. <code>document_page_01.jpg</code>), and for Word conversions, each page is organized with clear page section headings.
+            Yes! All PDF parsing, image rendering, and docx generation happen 100% locally in your browser. No files are uploaded to any server.
           </div>
         </div>
       </div>
@@ -478,18 +603,18 @@
                 <polyline points="14 2 14 8 20 8"></polyline>
               </svg>
             </div>
-            <span>Lokah Converter</span>
+            <span>PDF Studio</span>
           </a>
-          <p>Simple, private, and powerful PDF & Word conversion tools for everyone.</p>
+          <p>Simple, private, and powerful PDF & Word studio tools for everyone.</p>
         </div>
 
         <div class="footer-links-group">
           <div class="footer-col">
             <h5>Navigation</h5>
             <ul>
-              <li><a href="#converter">Home</a></li>
+              <li><a href="#converter">Studio</a></li>
               <li><a href="#features">Features</a></li>
-              <li><a href="#how-it-works">How It Works</a></li>
+              <li><a href="#history">History</a></li>
               <li><a href="#faq">FAQ</a></li>
             </ul>
           </div>
@@ -498,41 +623,113 @@
             <ul>
               <li><a href="https://github.com/karthikeyan0929/lokah" target="_blank" rel="noopener noreferrer">GitHub Repository</a></li>
               <li><a href="https://lokah-nu.vercel.app" target="_blank" rel="noopener noreferrer">Live Vercel Demo</a></li>
-              <li><a href="#converter">Privacy Policy</a></li>
             </ul>
           </div>
         </div>
       </div>
 
       <div class="footer-bottom">
-        <p>© 2026 Lokah Converter. Open source under the MIT License.</p>
+        <p>© 2026 Lokah PDF Studio. Open source under the MIT License.</p>
         <p>Built with PDF.js, docx & Vite</p>
       </div>
     </div>
   </footer>
 
-  <!-- Fullscreen High-Resolution Preview Modal -->
+  <!-- ADVANCED POST-CONVERSION CANVAS IMAGE EDITOR MODAL -->
+  <div class="modal-overlay" id="editorModal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="editorHeading">
+    <div class="modal-box editor-modal-box">
+      <div class="modal-head">
+        <h4 id="editorHeading">Studio Image Editor</h4>
+        <div class="editor-head-actions">
+          <button id="editorUndoBtn" class="btn btn-ghost btn-sm" title="Undo">↩ Undo</button>
+          <button id="editorRedoBtn" class="btn btn-ghost btn-sm" title="Redo">↪ Redo</button>
+          <button id="editorResetBtn" class="btn btn-ghost btn-sm text-danger" title="Reset to Original">Reset</button>
+          <button id="closeEditorBtn" class="btn btn-icon btn-ghost" aria-label="Close editor">✕</button>
+        </div>
+      </div>
+
+      <div class="editor-modal-body">
+        <!-- Canvas Preview Area -->
+        <div class="editor-canvas-wrap">
+          <img id="editorLiveImg" src="" alt="Editor preview" class="editor-preview-img" />
+        </div>
+
+        <!-- Editor Toolbar Sidebar -->
+        <div class="editor-sidebar">
+          <h5>Transform & Filters</h5>
+
+          <div class="editor-tool-row">
+            <button class="btn btn-secondary btn-sm" id="toolRotateRight">🔄 Rotate 90°</button>
+            <button class="btn btn-secondary btn-sm" id="toolFlipH">↔ Flip H</button>
+            <button class="btn btn-secondary btn-sm" id="toolFlipV">↕ Flip V</button>
+          </div>
+
+          <div class="editor-slider-group">
+            <label for="editBrightness">Brightness: <span id="valBrightness">100%</span></label>
+            <input type="range" id="editBrightness" min="30" max="180" value="100" class="setting-range" />
+          </div>
+
+          <div class="editor-slider-group">
+            <label for="editContrast">Contrast: <span id="valContrast">100%</span></label>
+            <input type="range" id="editContrast" min="30" max="180" value="100" class="setting-range" />
+          </div>
+
+          <div class="editor-slider-group">
+            <label for="editSaturation">Saturation: <span id="valSaturation">100%</span></label>
+            <input type="range" id="editSaturation" min="0" max="200" value="100" class="setting-range" />
+          </div>
+
+          <div class="editor-slider-group">
+            <label class="custom-checkbox-label">
+              <input type="checkbox" id="editGrayscale" />
+              <span>Apply B&W Grayscale Filter</span>
+            </label>
+          </div>
+
+          <div class="editor-slider-group">
+            <label for="editWatermarkText">Apply Watermark</label>
+            <input type="text" id="editWatermarkText" placeholder="Confidential / Draft" class="setting-input" />
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-foot">
+        <button id="saveEditorChangesBtn" class="btn btn-primary">
+          <span>Apply & Save Edited JPEG</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TEXT EXTRACTION (OCR) MODAL -->
+  <div class="modal-overlay" id="ocrModal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="ocrHeading">
+    <div class="modal-box">
+      <div class="modal-head">
+        <h4 id="ocrHeading">Extracted Document Text (OCR)</h4>
+        <button id="closeOcrBtn" class="btn btn-icon btn-ghost">✕</button>
+      </div>
+      <div class="modal-content-area" style="background: var(--bg-surface); padding: 1.5rem;">
+        <textarea id="ocrTextOutput" class="ocr-textarea" readonly></textarea>
+      </div>
+      <div class="modal-foot">
+        <button id="copyOcrTextBtn" class="btn btn-secondary">📋 Copy Text</button>
+        <button id="downloadOcrTxtBtn" class="btn btn-primary">⬇ Download .TXT</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fullscreen Preview Modal -->
   <div class="modal-overlay" id="previewModal" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="modalHeading">
     <div class="modal-box">
       <div class="modal-head">
         <h4 id="modalHeading">Page Preview</h4>
-        <button id="closeModalBtn" class="btn btn-icon btn-ghost" aria-label="Close modal">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="18" y1="6" x2="6" y2="18"></line>
-            <line x1="6" y1="6" x2="18" y2="18"></line>
-          </svg>
-        </button>
+        <button id="closeModalBtn" class="btn btn-icon btn-ghost" aria-label="Close modal">✕</button>
       </div>
       <div class="modal-content-area">
         <img id="modalPreviewImage" src="" alt="Full resolution JPEG preview" class="modal-img" />
       </div>
       <div class="modal-foot">
         <button id="modalDownloadBtn" class="btn btn-primary">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
-          </svg>
           Download JPEG
         </button>
       </div>

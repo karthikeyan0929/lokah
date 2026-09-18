@@ -1,140 +1,105 @@
-# PDF2JPEG – High-Definition PDF to JPEG Converter
+# Smart PDF Conversion Studio (PDF2JPEG & Word)
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fkarthikeyan0929%2Flokah)
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-black?style=flat&logo=vercel)](https://lokah-nu.vercel.app)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-**PDF2JPEG (Lokah)** is a modern, production-ready SaaS web application that converts PDF documents into high-resolution JPEG images directly inside the browser. Fast, 100% private, and zero server upload required.
+**Smart PDF Conversion Studio (Lokah)** is a complete, production-grade SaaS document-processing suite designed for in-browser PDF-to-JPEG conversion, PDF-to-Word (.docx) compilation, deep document structure inspection, image editing, watermarking, and OCR text extraction.
 
-🌐 **Live Demo**: [https://lokah-nu.vercel.app](https://lokah-nu.vercel.app)
-
-
----
-
-## 🚀 Features
-
-- ⚡ **100% In-Browser Rendering**: PDF pages are parsed and rendered onto HTML5 Canvas elements locally. No documents are uploaded to any external server.
-- 🎯 **Multiple Resolution Presets**:
-  - **Standard**: 1.25x (~96-100 DPI)
-  - **High Definition**: 2.0x (~150 DPI)
-  - **Very High / Print**: 3.0x (~300 DPI)
-- 🎚️ **Custom JPEG Quality Compression**: Fine-tune compression ratio from 50% to 100% with live quality percentage display.
-- 📑 **Flexible Page Selection**: Convert all pages or specify page ranges (e.g. `1-5, 8, 12`).
-- 📦 **One-Click Bulk ZIP Export**: Download individual page images or package all converted pages into a `.zip` file using `JSZip` and `FileSaver`.
-- 🔍 **Fullscreen Zoom Modal**: Click any page preview thumbnail to inspect the full-resolution render.
-- 📱 **Mobile & Tablet Optimized**: Responsive layout across all screen sizes.
-- 🌓 **Dark / Light Mode**: Accessible contrast with theme switching.
+🌐 **Live Application**: [https://lokah-nu.vercel.app](https://lokah-nu.vercel.app)
 
 ---
 
-## 🛠️ Architecture & Tech Stack
+## 🌟 Advanced Studio Capabilities
+
+1. **High-Definition PDF to JPEG Conversion**:
+   - Customizable DPI Presets: `72 DPI` (Web), `150 DPI` (HD), `300 DPI` (Ultra/Print), `600 DPI` (Archival).
+   - Dynamic Quality Slider (20% to 100% compression).
+   - Grayscale (B&W) rasterization filter.
+   - White background canvas isolation preserving transparent vectors.
+
+2. **Deep Document & Page Analysis**:
+   - Page dimensions, total image counts, orientation analysis (Portrait/Landscape/Mixed).
+   - Scanned document heuristic detection.
+   - Text layer density inspection.
+   - **Smart Optimization Recommendation Engine**: Suggests optimal DPI and JPEG quality based on real document characteristics.
+
+3. **Smart Page Filtering**:
+   - Range selection (e.g. `1-5, 8, 12`).
+   - Quick selection helpers: *Even Pages*, *Odd Pages*, *Invert Selection*, *Select All*.
+   - **Exclude Blank Pages**: Automatically identifies and filters out blank or empty pages.
+
+4. **Built-in Post-Conversion Canvas Image Editor**:
+   - 90° rotation, horizontal & vertical flip.
+   - Real-time filters: Brightness, Contrast, Saturation, and B&W Grayscale.
+   - Custom Watermarks (position, opacity, rotation).
+   - Non-destructive history with full **Undo / Redo / Reset**.
+
+5. **OCR & Structured Text Extraction**:
+   - Extract selectable text layers into structured text view.
+   - Single-click **Copy to Clipboard** or export as `.txt` files.
+
+6. **PDF to Word (.docx) Compilation**:
+   - Converts multi-page PDFs into formatted, editable Microsoft Word (`.docx`) files with page sections and heading hierarchies.
+
+7. **Batch Processing & Multi-Level Downloads**:
+   - Multi-file queue with independent status indicators.
+   - Single-click **Bulk ZIP packaging** using `JSZip` and `FileSaver`.
+
+8. **Conversion Metrics & Local History**:
+   - Real processing time, compression calculations, and local conversion history tracking.
+   - Temporary Share link generator.
+
+---
+
+## 🛠️ Project Structure
 
 ```text
 lokah/
 ├── src/
 │   ├── lib/
-│   │   ├── fileUtils.js       # File validation, size formatting, page-range parsing
-│   │   ├── pdfConverter.js    # PDF.js rendering pipeline, canvas rasterization, DPI scaling
-│   │   └── zipUtils.js        # ZIP bundling and download triggers
+│   │   ├── analyzer.js        # Deep document inspection & smart recommendations
+│   │   ├── fileUtils.js       # Validation, formatting & page range parsing
+│   │   ├── historyService.js  # LocalStorage conversion history & share links
+│   │   ├── imageEditor.js     # Canvas editor engine (rotate, filters, watermark, undo/redo)
+│   │   ├── pdfConverter.js    # PDF.js rasterization with DPI scaling & watermarks
+│   │   ├── wordConverter.js   # PDF to DOCX document generation with docx/mammoth
+│   │   └── zipUtils.js        # Bulk ZIP archiving
 │   ├── styles/
-│   │   └── main.css           # SaaS design system, dark/light modes, responsive layout
-│   └── main.js                # Application state machine, queue & UI workflow controller
-├── index.html                 # Semantic HTML5 layout (Hero, Dropzone, Queue, Results, FAQ, Footer)
+│   │   └── main.css           # Complete SaaS design system, dark/light modes & editor styles
+│   └── main.js                # Studio state machine, workflow controller & event handling
+├── index.html                 # Semantic HTML5 layout
 ├── vercel.json                # Vercel deployment configuration
 └── package.json               # Dependencies and scripts
 ```
 
-- **PDF Engine**: [Mozilla PDF.js](https://mozilla.github.io/pdf.js/)
-- **Bundler & Server**: [Vite](https://vitejs.dev/)
-- **Archiving**: [JSZip](https://stuk.github.io/jszip/) + [FileSaver](https://github.com/eligrey/FileSaver.js/)
-- **Styling**: Vanilla CSS3 design system with CSS custom properties and Glassmorphism accents.
-
 ---
 
-## ⚙️ How It Works (Conversion Pipeline)
+## 💻 Local Development
 
-```
-[PDF File Selected]
-       │
-       ▼
-[Validate MIME & Size]
-       │
-       ▼
-[Load PDF Metadata & Page Count via PDF.js]
-       │
-       ▼
-[Render Target Pages onto HTML5 Canvas with White Background & High DPI Scale]
-       │
-       ▼
-[Encode Canvas to JPEG Blob & Data URL]
-       │
-       ▼
-[Display Results Gallery with Dimensions & File Size]
-       │
-       ├─────────────────────────┬─────────────────────────┐
-       ▼                         ▼                         ▼
-[Single JPEG Download]   [Interactive Zoom Preview]   [Bulk ZIP Archive Export]
-```
-
----
-
-## 💻 Installation & Local Development
-
-### 1. Clone the repository
 ```bash
+# Clone repository
 git clone https://github.com/karthikeyan0929/lokah.git
 cd lokah
-```
 
-### 2. Install dependencies
-```bash
+# Install dependencies
 npm install
-```
 
-### 3. Start local dev server
-```bash
+# Run Vite dev server
 npm run dev
-```
 
-### 4. Build for production
-```bash
+# Build for production
 npm run build
 ```
 
-### 5. Preview production build
-```bash
-npm run preview
-```
-
 ---
 
-## 🌐 Supported Browsers
+## 🔒 Security & Privacy
 
-- Google Chrome (Desktop & Mobile)
-- Mozilla Firefox
-- Apple Safari (macOS & iOS)
-- Microsoft Edge
-- Brave / Chromium-based browsers
-
----
-
-## 🔒 Privacy & Security
-
-- **Zero Server Uploads**: The application operates entirely on the client side using Web APIs and Web Workers.
-- **No Telemetry / No Tracking**: Your private documents, financial reports, or personal PDFs never leave your device.
-- **Temporary Memory Cleanup**: Canvas buffers and object URLs are safely garbage-collected between conversions.
-
----
-
-## 🔮 Future Improvements
-
-- [ ] WebP & PNG output format toggle
-- [ ] Drag-and-drop page reordering
-- [ ] Client-side PDF page rotation & extraction
-- [ ] OCR text extraction overlay
+All processing is **100% client-side**. Documents never leave your computer or browser memory. No data is stored externally.
 
 ---
 
 ## 📜 License
 
-Distributed under the **MIT License**. See `LICENSE` for details.
+MIT License
